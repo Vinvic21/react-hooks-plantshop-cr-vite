@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
 
-function PlantPage() {
+function PlantPage({plantList,setNewPlant, newPlant, setPlantList}) {
+  const[searchPlant, setSearchPlant] = useState("")
+
+  const filteredPlants = plantList.filter((plant) => 
+  plant.name.toLowerCase().includes(searchPlant.toLowerCase())
+  )
   return (
     <main>
-      <NewPlantForm />
-      <Search />
-      <PlantList />
+      <NewPlantForm setPlantList={setPlantList} newPlant={newPlant} setNewPlant={setNewPlant}/>
+      <Search searchPlant = {searchPlant} setSearchPlant = {setSearchPlant}/>
+      <PlantList plantList = {filteredPlants} />
     </main>
   );
 }
